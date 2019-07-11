@@ -55,15 +55,27 @@ static void mb_slave_poll(void *parameter)
 {
     if (rt_strstr(parameter, "RTU"))
     {
+#ifdef PKG_MODBUS_SLAVE_RTU
         eMBInit(MB_RTU, SLAVE_ADDR, PORT_NUM, PORT_BAUDRATE, PORT_PARITY);
+#else
+        rt_kprintf("Error: Please open RTU mode first");
+#endif
     }
     else if (rt_strstr(parameter, "ASCII"))
     {
+#ifdef PKG_MODBUS_SLAVE_ASCII
         eMBInit(MB_ASCII, SLAVE_ADDR, PORT_NUM, PORT_BAUDRATE, PORT_PARITY);
+#else
+        rt_kprintf("Error: Please open ASCII mode first");
+#endif
     }
     else if (rt_strstr(parameter, "TCP"))
     {
+#ifdef PKG_MODBUS_SLAVE_TCP
         eMBTCPInit(0);
+#else
+        rt_kprintf("Error: Please open TCP mode first");
+#endif
     }
     else
     {
