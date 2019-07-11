@@ -19,7 +19,7 @@
 #define PORT_BAUDRATE   MB_SLAVE_USING_PORT_BAUDRATE
 #else
 #define SLAVE_ADDR      0x01
-#define PORT_NUM        3
+#define PORT_NUM        2
 #define PORT_BAUDRATE   115200
 #endif
 
@@ -53,7 +53,22 @@ static void send_thread_entry(void *parameter)
 
 static void mb_slave_poll(void *parameter)
 {
-    eMBInit(MB_RTU, SLAVE_ADDR, PORT_NUM, PORT_BAUDRATE, PORT_PARITY);
+    if (rt_strstr(parameter, "RTU"))
+    {
+        eMBInit(MB_RTU, SLAVE_ADDR, PORT_NUM, PORT_BAUDRATE, PORT_PARITY);
+    }
+    else if (rt_strstr(parameter, "ASCII"))
+    {
+        eMBInit(MB_ASCII, SLAVE_ADDR, PORT_NUM, PORT_BAUDRATE, PORT_PARITY);
+    }
+    else if (rt_strstr(parameter, "TCP"))
+    {
+        eMBTCPInit(0);
+    }
+    else
+    {
+        rt_kprintf("Error: unknown parameter");
+    }
     eMBEnable();
     while (1)
     {
@@ -72,7 +87,13 @@ static int mb_slave_samlpe(int argc, char **argv)
         rt_kprintf("sample is running\n");
         return -RT_ERROR;
     }
-    tid1 = rt_thread_create("md_s_poll", mb_slave_poll, RT_NULL, 512, MB_POLL_THREAD_PRIORITY, 10);
+    if (argc < 2)
+    {
+        rt_kprintf("Usage: mb_slave_samlpe RTU/ASCII/TCP\n");
+        return -1;
+    }
+
+    tid1 = rt_thread_create("md_s_poll", mb_slave_poll, argv[1], 1024, MB_POLL_THREAD_PRIORITY, 10);
     if (tid1 != RT_NULL)
     {
         rt_thread_startup(tid1);

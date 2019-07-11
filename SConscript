@@ -30,6 +30,7 @@ modbus/functions/mbfuncinput.c
 modbus/mb.c
 port/portevent.c
 port/portserial.c
+port/porttcp.c
 port/porttimer.c
 port/user_mb_app.c
 """)
@@ -38,6 +39,7 @@ port/user_mb_app.c
 path = [GetCurrentDir() + '/modbus/include',
     GetCurrentDir() + '/modbus/rtu',
     GetCurrentDir() + '/modbus/ascii',
+    GetCurrentDir() + '/modbus/tcp',
     GetCurrentDir() + '/port']
 
 if GetDepend(['PKG_MODBUS_MASTER_RTU']):
@@ -52,6 +54,9 @@ if GetDepend(['PKG_MODBUS_SLAVE_RTU']):
 if GetDepend(['PKG_MODBUS_SLAVE_ASCII']):
     src += ['modbus/ascii/mbascii.c']
     src += ['modbus/rtu/mbrtu.c']
+
+if GetDepend(['PKG_MODBUS_SLAVE_TCP']):
+    src += ['modbus/tcp/mbtcp.c']
 
 if GetDepend(['PKG_MODBUS_MASTER_SAMPLE']):
     src += ['samples/sample_mb_master.c']

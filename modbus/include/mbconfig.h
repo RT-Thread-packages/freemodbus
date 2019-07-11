@@ -72,7 +72,12 @@ PR_BEGIN_EXTERN_C
 #endif
 
 /*! \brief If Modbus Slave TCP support is enabled. */
+#ifdef PKG_MODBUS_SLAVE_TCP
+#define MB_SLAVE_TCP_ENABLED                    (  1 )
+#else
 #define MB_SLAVE_TCP_ENABLED                    (  0 )
+#endif
+
 /*! \brief The character timeout value for Modbus ASCII.
  *
  * The character timeout value is not fixed for Modbus ASCII and is therefore
