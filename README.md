@@ -1,185 +1,188 @@
 # Freemodbus
-## 简介
 
-这是 armink 大神移植的 Freemodbus 协议栈。同时支持主机和从机的功能。
+[中文页](README_ZH.md) | English
 
-FreeModbus 是一款开源的 Modbus 协议栈，但是只有从机开源，主机源码是需要**收费**的。同时网上也没有发现比较好的开源的 Modbus 主机协议栈，所以才开发这款支持主机模式的 FreeModbus 协议栈。本版 FreeModbus版本号更改为V1.6，特性如下：
+## Introduction
 
-- 新增加的主机源码与原有从机的风格及接口保持一致；
-- 支持主机与从机在同一协议栈运行；
-- 支持实时操作系统及裸机移植；
-- 为应用提供多种请求模式，用户可以选择阻塞还是非阻塞模式，自定义超时时间等，方便应用层灵活调用；
-- 支持所有常用的Modbus方法。
+This is the Freemodbus protocol stack ported by armink. Support the functions of the master and slave at the same time.
 
-### 文件结构
+FreeModbus is an open source Modbus protocol stack, but only the slave is open source, and the host source code is **charged**. At the same time, no better open source Modbus host protocol stack was found on the Internet, so this FreeModbus protocol stack supporting host mode was developed. This version of FreeModbus has been changed to V1.6 and features are as follows:
 
-| 源文件                                        | 描述                                             |
-| --------------------------------------------- | ------------------------------------------------ |
-| FreeModbus\modbus\mb.c                        | 给应用层提供Modbus从机设置及轮询相关接口         |
-| FreeModbus\modbus\mb_m.c                      | 给应用层提供Modbus主机设置及轮询相关接口         |
-| FreeModbus\modbus\ascii\mbascii.c             | ASCII模式设置及其状态机                          |
-| FreeModbus\modbus\functions\mbfunccoils.c     | 从机线圈相关功能                                 |
-| FreeModbus\modbus\functions\mbfunccoils_m.c   | 主机线圈相关功能                                 |
-| FreeModbus\modbus\functions\mbfuncdisc.c      | 从机离散输入相关功能                             |
-| FreeModbus\modbus\functions\mbfuncdisc_m.c    | 主机离散输入相关功能                             |
-| FreeModbus\modbus\functions\mbfuncholding.c   | 从机保持寄存器相关功能                           |
-| FreeModbus\modbus\functions\mbfuncholding_m.c | 主机保持寄存器相关功能                           |
-| FreeModbus\modbus\functions\mbfuncinput.c     | 从机输入寄存器相关功能                           |
-| FreeModbus\modbus\functions\mbfuncinput_m.c   | 主机输入寄存器相关功能                           |
-| FreeModbus\modbus\functions\mbfuncother.c     | 其余Modbus功能                                   |
-| FreeModbus\modbus\functions\mbutils.c         | 一些协议栈中需要用到的小工具                     |
-| FreeModbus\modbus\rtu\mbcrc.c                 | CRC校验功能                                      |
-| FreeModbus\modbus\rtu\mbrtu.c                 | 从机RTU模式设置及其状态机                        |
-| FreeModbus\modbus\rtu\mbrtu_m.c               | 主机RTU模式设置及其状态机                        |
-| FreeModbus\modbus\tcp\mbtcp.c                 | TCP模式设置及其状态机                            |
-| FreeModbus\port\port.c                        | 实现硬件移植部分接口                             |
-| FreeModbus\port\portevent.c                   | 实现从机事件移植接口                             |
-| FreeModbus\port\portevent_m.c                 | 实现主机事件及错误处理移植接口                   |
-| FreeModbus\port\portserial.c                  | 从机串口移植                                     |
-| FreeModbus\port\portserial_m.c                | 主机串口移植                                     |
-| FreeModbus\port\porttimer.c                   | 从机定时器移植                                   |
-| FreeModbus\port\porttimer_m.c                 | 主机定时器移植                                   |
-| FreeModbus\port\user_mb_app.c                 | 定义从机数据缓冲区，实现从机Modbus功能的回调接口 |
-| FreeModbus\port\user_mb_app_m.c               | 定义主机数据缓冲区，实现主机Modbus功能的回调接口 |
-| FreeModbus\samples\sample_mb_master.c         | 主机使用示例代码                                 |
-| FreeModbus\samples\sample_mb_slave.c          | 从机使用示例代码                                 |
-| FreeModbus\samples\README.md                  | 示例代码说明文档                                 |
+- The newly added host source code is consistent with the style and interface of the original slave;
+- Support the host and slave to run in the same protocol stack;
+- Support real-time operating system and bare metal transplantation;
+- Provide a variety of request modes for applications, users can choose blocking or non-blocking mode, custom timeout time, etc., to facilitate flexible calls at the application layer;
+- Support all common Modbus methods.
 
-> 注：所有带_m后缀的文件为主机模式下必须使用的文件，如使用从机模式则无需这些文件。
+### File structure
 
-### 许可证
+| Source File | Description |
+| --------------------------------------------- | ----------------------------------------------- |
+| FreeModbus\modbus\mb.c | Provides Modbus slave settings and polling related interfaces for the application layer |
+| FreeModbus\modbus\mb_m.c | Provides Modbus host settings and polling related interfaces for the application layer |
+| FreeModbus\modbus\ascii\mbascii.c | ASCII mode settings and state machine |
+| FreeModbus\modbus\functions\mbfunccoils.c | Slave coil related functions |
+| FreeModbus\modbus\functions\mbfunccoils_m.c | Host coil related functions |
+| FreeModbus\modbus\functions\mbfuncdisc.c | Slave Discrete Input Related Functions |
+| FreeModbus\modbus\functions\mbfuncdisc_m.c | Discrete input related functions of the host |
+| FreeModbus\modbus\functions\mbfuncholding.c | Slave holding register related functions |
+| FreeModbus\modbus\functions\mbfuncholding_m.c | Host holding register related functions |
+| FreeModbus\modbus\functions\mbfuncinput.c | Slave input register related functions |
+| FreeModbus\modbus\functions\mbfuncinput_m.c | Host input register related functions |
+| FreeModbus\modbus\functions\mbfuncother.c | Other Modbus functions |
+| FreeModbus\modbus\functions\mbutils.c | Some small tools that need to be used in the protocol stack |
+| FreeModbus\modbus\rtu\mbcrc.c | CRC check function |
+| FreeModbus\modbus\rtu\mbrtu.c | Slave RTU mode settings and state machine |
+| FreeModbus\modbus\rtu\mbrtu_m.c | Host RTU mode settings and state machine |
+| FreeModbus\modbus\tcp\mbtcp.c | TCP mode settings and state machine |
+| FreeModbus\port\port.c | Implement hardware porting part of the interface |
+| FreeModbus\port\portevent.c | Implement slave event porting interface |
+| FreeModbus\port\portevent_m.c | Implement host event and error handling porting interface |
+| FreeModbus\port\portserial.c | Slave port porting |
+| FreeModbus\port\portserial_m.c | Host serial port porting |
+| FreeModbus\port\porttimer.c | Slave timer porting |
+| FreeModbus\port\porttimer_m.c | Host timer porting |
+| FreeModbus\port\user_mb_app.c | Define slave data buffer, realize the callback interface of slave Modbus function |
+| FreeModbus\port\user_mb_app_m.c | Define host data buffer, realize the callback interface of host Modbus function |
+| FreeModbus\samples\sample_mb_master.c | Sample code for host use |
+| FreeModbus\samples\sample_mb_slave.c | Slave use sample code |
+| FreeModbus\samples\README.md | Sample code description document |
 
-Freemodbus 软件包遵循 BSD 许可，详见 `LICENSE` 文件。
+> Note: All files with the _m suffix are the files that must be used in the master mode. If the slave mode is used, these files are not required.
 
-### 依赖
+### License
 
-- RT_Thread UART 设备
+The Freemodbus software package complies with the BSD license, see the `LICENSE` file for details.
 
-## 获取方式
+### Dependence
 
-使用 Freemodbus  软件包 需要在 RT-Thread 的包管理器中选择它，具体路径如下：
+- RT_Thread UART device
+
+## method of obtaining
+
+To use the Freemodbus software package, you need to select it in the RT-Thread package manager. The specific path is as follows:
 
 ```
 RT-Thread online packages
-    IoT - internet of things --->
-        [*] FreeModbus: Modbus master and slave stack  --->
-             [*]   Master mode  --->
-             [*]   Slave mode  --->
+    IoT-internet of things --->
+        [*] FreeModbus: Modbus master and slave stack --->
+             [*] Master mode --->
+             [*] Slave mode --->
 ```
 
-最后让 RT-Thread 的包管理器自动更新，或者使用 `pkgs --update` 命令更新包到 BSP 中。
+Finally, let RT-Thread's package manager automatically update, or use the `pkgs --update` command to update the package to the BSP.
 
-## 使用方法
+## Instructions
 
-### 数据缓冲区
+### Data buffer
 
-数据缓冲区定义的位置位于 `FreeModbus\port\user_mb_app_m.c` 文件顶部，共计 **4种** 数据类型。 FreeModbus从机默认使用 **一维数组** 作为缓存区数据结构，主机可以存储所有网内从机的数据，所以主机采用 **二维数组** 对所有从机节点数据进行存储。二维数组的列号代表寄存器、线圈及离散量地址，行号代表从机节点ID，但需要做减一处理，例如`usMRegHoldBuf[2][1]`代表从机ID为 3，保持寄存器地址为 1 的从机数据。
+The location defined by the data buffer is at the top of the `FreeModbus\port\user_mb_app_m.c` file, with a total of **4** data types. By default, FreeModbus slaves use **one-dimensional array** as the data structure of the buffer area. The host can store the data of all slaves in the network, so the host uses **two-dimensional array** to store all slave node data. The column number of the two-dimensional array represents the register, coil and discrete address, and the row number represents the slave node ID, but it needs to be reduced by one. For example, `usMRegHoldBuf[2][1]` means the slave ID is 3, and the register address is maintained The slave data is 1.
 
-### Modbus 数据处理回调接口
+### Modbus data processing callback interface
 
-Modbus 一共有4种不同的数据类型，所有的 Modbus 功能都围绕这些数据类型进行操作。由于不同的用户数据缓冲区结构可能有所不同，那么对应的 Modbus 数据处理方式也就存在差异，所以用户需要把每种数据类型对应的操作，按照自己的数据缓冲区结构进行定制实现。 所有的 Modbus 数据处理回调接口如下：
+Modbus has 4 different data types in total, and all Modbus functions operate around these data types. Since different user data buffer structures may be different, the corresponding Modbus data processing methods are also different, so users need to customize the operations corresponding to each data type according to their own data buffer structure. All Modbus data processing callback interfaces are as follows:
 
-| 接口                   | 功能描述           |
+| Interface | Function description |
 | ---------------------- | ------------------ |
-| eMBMasterRegInputCB    | 输入寄存器回调接口 |
-| eMBMasterRegHoldingCB  | 保持寄存器回调接口 |
-| eMBMasterRegCoilsCB    | 线圈回调接口       |
-| eMBMasterRegDiscreteCB | 离散输入回调接口   |
+| eMBMasterRegInputCB | Input register callback interface |
+| eMBMasterRegHoldingCB | Holding register callback interface |
+| eMBMasterRegCoilsCB | Coil callback interface |
+| eMBMasterRegDiscreteCB | Discrete input callback interface |
 
-> 对于数组形式的数据缓冲区结构，源码中已经做好了移植，直接使用即可。
+> For the data buffer structure in the form of an array, the source code has already been transplanted and can be used directly.
 
-### 初始化配置流程
+### Initial configuration process
 
-本协议栈所有配置参数都位于`FreeModbus\modbus\include\mbconfig.h`，目前协议栈支持主机及从机两种模式，并且支持**两种模式同时开启**。从机支持Modbus RTU 、Modbus ASCII 及Modbus TCP 3种模式，主机现在只支持常用的**Modbus RTU**模式。在使用主机的过程中，用户需要对广播的转换延时时间、命令响应超时时间及从机数量做以配置。需要注意的是，目前协议栈只支持**从机地址连续**，并且起始地址**从1开始**。
+All configuration parameters of this protocol stack are located in `FreeModbus\modbus\include\mbconfig.h`, currently the protocol stack supports two modes of master and slave, and supports **both modes to be turned on at the same time**. The slave supports Modbus RTU, Modbus ASCII and Modbus TCP 3 modes, and the master now only supports the commonly used **Modbus RTU** mode. In the process of using the master, the user needs to configure the broadcast conversion delay time, command response timeout time and the number of slaves. It should be noted that the current protocol stack only supports continuous slave addresses, and the starting address starts from 1**.
 
-### 正常使用流程
+### Normal use process
 
-1. 调用`eMBMasterInit`方法初始化Modbus主机协议栈，主机涉及到的一些硬件就在这个时候做了初始化
-2. 调用`eMBMasterEnable`方法启动Modbus主机
-3. 通过在线程或者定时器轮询调用`eMBMasterPoll`方法，轮询周期决定了命令的响应时间。
-4. 调用主机请求API方法，设定一定的请求超时时间，直到方法有结果后才会返回。如果方法执行成功并且命令是读命令，可以通过查看Modbus主机的数据缓冲区，获取最新从机数据。
+1. Call the `eMBMasterInit` method to initialize the Modbus host protocol stack, and some hardware related to the host is initialized at this time
+2. Call the `eMBMasterEnable` method to start the Modbus master
+3. By calling the `eMBMasterPoll` method in thread or timer polling, the polling cycle determines the response time of the command.
+4. Call the host to request the API method, set a certain request timeout period, and will not return until the method has a result. If the method is executed successfully and the command is a read command, you can obtain the latest slave data by viewing the data buffer of the Modbus master.
 
-> 具体的使用方法，可以参考 `/samples` 目录下的示例代码。调试 Modbus 的主从机程序可以在 PC 上使用 Modbus Poll 和 Modbus slave 软件配合调试。
+> For specific usage, please refer to the sample code in the `/samples` directory. Debugging the Modbus master-slave program can be debugged with Modbus Poll and Modbus slave software on the PC.
 
-### 异常处理流程
+### Exception handling process
 
-异常处理主要出现在主机正常使用过程中，所有的主机请求API的错误码都在第三章开头已经做以描述，针对的这些错误码，用户需要根据自己的产品特征去完成不同的动作。建议用户自己封装实现主机请求方法的重发机制，这样实现方式比较灵活，一般是在接收到帧数据出错及命令响应超时的错误码时需要重发，重发次数自动加一，如果重发次数超过设定值则认为从机掉线，以后所有只要是发给这个从机命令都被提前拦截掉；如果第二次重发命令响应成功，则**自动清零**该从机重发次数。 上述所有功能可以利用主机请求方法或者使用`FreeModbus\port\portevent_m.c`中的回调接口来实现，用户可以根据自己的需求灵活选择。
+Exception handling mainly occurs during the normal use of the host. All the error codes of the host request API have been described at the beginning of Chapter 3. For these error codes, users need to complete different actions according to their own product features. It is recommended that users encapsulate and implement the retransmission mechanism of the host request method. This implementation is more flexible. Generally, retransmission is required when receiving frame data errors and command response timeout error codes. The number of retransmissions is automatically increased by one. If the set value is exceeded, the slave is considered to be offline, and all subsequent commands sent to this slave are intercepted in advance; if the second retransmission command response is successful, **automatically cleared** the slave retransmits frequency. All the above functions can be realized by using the host request method or using the callback interface in `FreeModbus\port\portevent_m.c`, and users can choose flexibly according to their needs.
 
-## API 详解
+## API detailed
 
-Modbus 主机使用过程中与从机有很大不同，从机是需要被动等待主机请求，而主机则是主动发出请求，并接收处理从机响应。在主机发送广播请求的时候，从机不需要返回响应，所以广播请求适合主机的写从机数据命令，不适合读从机数据命令。 主机请求API中的所有方法的返回值格式都相同，返回值意义如下。
+The Modbus master is very different from the slave in the use process. The slave needs to passively wait for the request of the master, while the master actively sends out the request and receives and processes the response from the slave. When the host sends a broadcast request, the slave does not need to return a response, so the broadcast request is suitable for the master's write slave data command, not suitable for the read slave data command. The return value format of all methods in the host request API is the same, and the meaning of the return value is as follows.
 
-| 返回值             | 描述                                         |
-| ------------------ | -------------------------------------------- |
-| MB_MRE_NO_ERR      | 正常，没错误                                 |
-| MB_MRE_NO_REG      | 寄存器、线圈或离散输入地址出错               |
-| MB_MRE_ILL_ARG     | 入参格式有误                                 |
-| MB_MRE_REV_DATA    | 接收数据出错                                 |
-| MB_MRE_TIMEDOUT    | 响应超时。主机在设定的时间内未收到从机响应。 |
-| MB_MRE_MASTER_BUSY | 主机忙。在设定的时间内，请求没有被发送。     |
-| MB_MRE_EXE_FUN     | 主机收到响应后，执行Modbus方法（功能）出错。 |
+| Return value | Description |
+| ------------------ | ------------------------------------------- |
+| MB_MRE_NO_ERR | Normal, no error |
+| MB_MRE_NO_REG | Register, coil or discrete input address error |
+| MB_MRE_ILL_ARG | Incorrect input parameter format |
+| MB_MRE_REV_DATA | Receive data error |
+| MB_MRE_TIMEDOUT | Response timed out. The host did not receive the response from the slave within the set time. |
+| MB_MRE_MASTER_BUSY | The host is busy. The request was not sent within the set time. |
+| MB_MRE_EXE_FUN | After the host receives the response, an error occurs when executing the Modbus method (function). |
 
-> 所有的主机请求方法都是 **线程安全** 的也是 **阻塞模式** 的。在使用过程中，只要在设定的超时时间内没有得到主机资源，就会返回主机忙；如果在设定的超时时间内得到主机资源，那么必须等待得到请求结果后才会返回。
+> All host request methods are **thread safe** and **blocking mode**. During use, as long as the host resource is not obtained within the set timeout period, it will return that the host is busy; if the host resource is obtained within the set timeout period, it must wait for the request result before returning.
 
-### 写单个保持寄存器
+### Write a single holding register
 
-往从机某个保持寄存器中写入数据
+Write data to a holding register of the slave
 
 ```
-eMBMasterReqErrCode eMBMasterReqWriteHoldingRegister( UCHAR ucSndAddr, 
+eMBMasterReqErrCode eMBMasterReqWriteHoldingRegister( UCHAR ucSndAddr,
                                                       USHORT usRegAddr,
                                                       USHORT usRegData,
                                                       LONG lTimeOut );
 ```
 
-| 参数      | 描述                                                         |
-| --------- | ------------------------------------------------------------ |
-| ucSndAddr | 请求的从机地址，0代表广播。                                  |
-| usRegAddr | 写寄存器的地址                                               |
-| usRegData | 写寄存器的数据                                               |
-| lTimeOut  | 请求超时时间。支持永久等待，使用操作系统的永久等待参数即可。 |
+| Parameters | Description |
+| --------- | ----------------------------------------------------------- |
+| ucSndAddr | Requested slave address, 0 means broadcast. |
+| usRegAddr | Write register address |
+| usRegData | Write register data |
+| lTimeOut | Request timeout time. To support permanent waiting, just use the permanent waiting parameter of the operating system. |
 
-### 写多个保持寄存器
+### Write multiple holding registers
 
-往从机多个保持寄存器中写入数据。
+Write data to multiple holding registers of the slave.
 
 ```
 eMBMasterReqErrCode eMBMasterReqWriteMultipleHoldingRegister( UCHAR ucSndAddr,
                                                               USHORT usRegAddr,
-                                                              USHORT usNRegs, 
+                                                              USHORT usNRegs,
                                                               USHORT * pusDataBuffer,
-                                                              LONG lTimeOut )
+                                                              LONG lTimeOut)
 ```
 
-| 参数          | 描述                                                         |
-| ------------- | ------------------------------------------------------------ |
-| ucSndAddr     | 请求的从机地址，0代表广播。                                  |
-| usRegAddr     | 写寄存器的起始地址                                           |
-| usNRegs       | 写寄存器的总数                                               |
-| pusDataBuffer | 写寄存器的数据                                               |
-| lTimeOut      | 请求超时时间。支持永久等待，使用操作系统的永久等待参数即可。 |
+| Parameters | Description |
+| ------------- | ----------------------------------------------------------- |
+| ucSndAddr | Requested slave address, 0 means broadcast. |
+| usRegAddr | Start address of write register |
+| usNRegs | Total number of write registers |
+| pusDataBuffer | Write register data |
+| lTimeOut | Request timeout time. To support permanent waiting, just use the permanent waiting parameter of the operating system. |
 
-### 读多个保持寄存器
+### Read multiple holding registers
 
-读取多个保持寄存器中的数据
+Read data in multiple holding registers
 
 ```
-eMBMasterReqErrCode eMBMasterReqReadHoldingRegister( UCHAR ucSndAddr, 
+eMBMasterReqErrCode eMBMasterReqReadHoldingRegister( UCHAR ucSndAddr,
                                                      USHORT usRegAddr,
                                                      USHORT usNRegs,
                                                      LONG lTimeOut );
 ```
 
-| 参数      | 描述                                                         |
-| --------- | ------------------------------------------------------------ |
-| ucSndAddr | 请求的从机地址，0代表广播。                                  |
-| usRegAddr | 读寄存器的地址                                               |
-| usRegData | 读寄存器的数量                                               |
-| lTimeOut  | 请求超时时间。支持永久等待，使用操作系统的永久等待参数即可。 |
+| Parameters | Description |
+| --------- | ----------------------------------------------------------- |
+| ucSndAddr | Requested slave address, 0 means broadcast. |
+| usRegAddr | Read register address |
+| usRegData | Number of read registers |
+| lTimeOut | Request timeout time. To support permanent waiting, just use the permanent waiting parameter of the operating system. |
 
-### 读写多个保持寄存器
+### Read and write multiple holding registers
 
-先读多个寄存器，然后再写多个寄存器。
+Read multiple registers first, and then write multiple registers.
 
 ```
 eMBMasterReqErrCode eMBMasterReqReadWriteMultipleHoldingRegister( UCHAR ucSndAddr,
@@ -188,58 +191,58 @@ eMBMasterReqErrCode eMBMasterReqReadWriteMultipleHoldingRegister( UCHAR ucSndAdd
                                                                   USHORT * pusDataBuffer,
                                                                   USHORT usWriteRegAddr,
                                                                   USHORT usNWriteRegs,
-                                                                  LONG lTimeOut )
+                                                                  LONG lTimeOut)
 ```
 
-| 参数           | 描述                                                         |
-| -------------- | ------------------------------------------------------------ |
-| ucSndAddr      | 请求的从机地址，0代表广播。                                  |
-| usReadRegAddr  | 读寄存器的地址                                               |
-| usNReadRegs    | 读寄存器的数量                                               |
-| pusDataBuffer  | 写寄存器的数据                                               |
-| usWriteRegAddr | 写寄存器的地址                                               |
-| usNWriteRegs   | 写寄存器的数量                                               |
-| lTimeOut       | 请求超时时间。支持永久等待，使用操作系统的永久等待参数即可。 |
+| Parameters | Description |
+| -------------- | ----------------------------------------------------------- |
+| ucSndAddr | Requested slave address, 0 means broadcast. |
+| usReadRegAddr | Read register address |
+| usNReadRegs | Number of read registers |
+| pusDataBuffer | Write register data |
+| usWriteRegAddr | Write register address |
+| usNWriteRegs | Number of write registers |
+| lTimeOut | Request timeout time. To support permanent waiting, just use the permanent waiting parameter of the operating system. |
 
-### 读多个输入寄存器
+### Read multiple input registers
 
-读取多个输入寄存器中的数据
+Read data in multiple input registers
 
 ```
-eMBMasterReqErrCode eMBMasterReqReadInputRegister( UCHAR ucSndAddr, 
+eMBMasterReqErrCode eMBMasterReqReadInputRegister( UCHAR ucSndAddr,
                                                    USHORT usRegAddr,
                                                    USHORT usNRegs,
                                                    LONG lTimeOut );
 ```
 
-| 参数      | 描述                                                         |
-| --------- | ------------------------------------------------------------ |
-| ucSndAddr | 请求的从机地址，0代表广播。                                  |
-| usRegAddr | 读寄存器的地址                                               |
-| usRegData | 读寄存器的数量                                               |
-| lTimeOut  | 请求超时时间。支持永久等待，使用操作系统的永久等待参数即可。 |
+| Parameters | Description |
+| --------- | ----------------------------------------------------------- |
+| ucSndAddr | Requested slave address, 0 means broadcast. |
+| usRegAddr | Read register address |
+| usRegData | Number of read registers |
+| lTimeOut | Request timeout time. To support permanent waiting, just use the permanent waiting parameter of the operating system. |
 
-### 写单个线圈
+### Write a single coil
 
-往从机某个线圈中写入数据
+Write data to a coil of the slave
 
 ```
 eMBMasterReqErrCode eMBMasterReqWriteCoil( UCHAR ucSndAddr,
                                            USHORT usCoilAddr,
                                            USHORT usCoilData,
-                                           LONG lTimeOut )
+                                           LONG lTimeOut)
 ```
 
-| 参数       | 描述                                                         |
-| ---------- | ------------------------------------------------------------ |
-| ucSndAddr  | 请求的从机地址，0代表广播。                                  |
-| usCoilAddr | 写线圈的地址                                                 |
-| usCoilData | 写线圈的数量                                                 |
-| lTimeOut   | 请求超时时间。支持永久等待，使用操作系统的永久等待参数即可。 |
+| Parameters | Description |
+| ---------- | ----------------------------------------------------------- |
+| ucSndAddr | Requested slave address, 0 means broadcast. |
+| usCoilAddr | Write the address of the coil |
+| usCoilData | Number of write coils |
+| lTimeOut | Request timeout time. To support permanent waiting, just use the permanent waiting parameter of the operating system. |
 
-### 写多个线圈
+### Write multiple coils
 
-往从机多个线圈中写入数据。
+Write data to multiple coils of the slave.
 
 ```
 eMBMasterReqErrCode eMBMasterReqWriteMultipleCoils( UCHAR ucSndAddr,
@@ -249,56 +252,56 @@ eMBMasterReqErrCode eMBMasterReqWriteMultipleCoils( UCHAR ucSndAddr,
                                                     LONG lTimeOut)
 ```
 
-| 参数          | 描述                                                         |
-| ------------- | ------------------------------------------------------------ |
-| ucSndAddr     | 请求的从机地址，0代表广播。                                  |
-| usCoilAddr    | 写线圈的起始地址                                             |
-| usNCoils      | 写线圈的总数                                                 |
-| pucDataBuffer | 写线圈的数据                                                 |
-| lTimeOut      | 请求超时时间。支持永久等待，使用操作系统的永久等待参数即可。 |
+| Parameters | Description |
+| ------------- | ----------------------------------------------------------- |
+| ucSndAddr | Requested slave address, 0 means broadcast. |
+| usCoilAddr | Write the start address of the coil |
+| usNCoils | Total number of write coils |
+| pucDataBuffer | Write coil data |
+| lTimeOut | Request timeout time. To support permanent waiting, just use the permanent waiting parameter of the operating system. |
 
-### 读多个线圈
+### Read multiple coils
 
-读取多个线圈中的数据
+Read data from multiple coils
 
 ```
 eMBMasterReqErrCode eMBMasterReqReadCoils( UCHAR ucSndAddr,
                                            USHORT usCoilAddr,
-                                           USHORT usNCoils ,
-                                           LONG lTimeOut )
+                                           USHORT usNCoils,
+                                           LONG lTimeOut)
 ```
 
-| 参数       | 描述                                                         |
+| Parameters | Description |
 | ---------- | ------------------------------------------------------------ |
-| ucSndAddr  | 请求的从机地址，0代表广播。                                  |
-| usCoilAddr | 读线圈的地址                                                 |
-| usNCoils   | 读线圈的数量                                                 |
-| lTimeOut   | 请求超时时间。支持永久等待，使用操作系统的永久等待参数即可。 |
+| ucSndAddr | Requested slave address, 0 means broadcast. |
+| usCoilAddr | Read the address of the coil |
+| usNCoils | Number of reading coils |
+| lTimeOut | Request timeout time. To support permanent waiting, just use the permanent waiting parameter of the operating system. |
 
-### 读多个离散输入
+### Read multiple discrete inputs
 
-读取多个离散输入中的数据
+Read data from multiple discrete inputs
 
 ```
 eMBMasterReqErrCode eMBMasterReqReadDiscreteInputs( UCHAR ucSndAddr,
                                                     USHORT usDiscreteAddr,
                                                     USHORT usNDiscreteIn,
-                                                    LONG lTimeOut )
+                                                    LONG lTimeOut)
 ```
 
-| 参数           | 描述                                                         |
+| Parameters | Description |
 | -------------- | ------------------------------------------------------------ |
-| ucSndAddr      | 请求的从机地址，0代表广播。                                  |
-| usDiscreteAddr | 读离散输入的地址                                             |
-| usNDiscreteIn  | 读离散输入的数量                                             |
-| lTimeOut       | 请求超时时间。支持永久等待，使用操作系统的永久等待参数即可。 |
+| ucSndAddr | Requested slave address, 0 means broadcast. |
+| usDiscreteAddr | Read the address of discrete input |
+| usNDiscreteIn | Read the number of discrete inputs |
+| lTimeOut | Request timeout time. To support permanent waiting, just use the permanent waiting parameter of the operating system. |
 
-## 注意事项
+## Precautions
 
-- 从机支持Modbus RTU 、Modbus ASCII 及Modbus TCP 3种模式，主机现在只支持常用的**Modbus RTU**模式。
-- 目前协议栈只支持**从机地址连续**，并且起始地址**从1开始**。
+- The slave supports Modbus RTU, Modbus ASCII and Modbus TCP 3 modes. The master now only supports the commonly used **Modbus RTU** mode.
+- Currently the protocol stack only supports **continuous slave address**, and the starting address **starts from 1**.
 
-## 联系方式
+## Contact information
 
-- 维护：RT-Thread 开发团队及社区开发者
-- 主页：<https://github.com/RT-Thread-packages/freemodbus>
+- Maintenance: RT-Thread development team and community developers
+- Homepage: <https://github.com/RT-Thread-packages/freemodbus>
