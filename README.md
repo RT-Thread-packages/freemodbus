@@ -1,6 +1,6 @@
 # Freemodbus
 
-[Chinese](README_ZH.md) | English
+[中文页](README_ZH.md) | English
 
 ## Introduction
 
@@ -8,11 +8,11 @@ This is the Freemodbus protocol stack ported by armink. Support the functions of
 
 FreeModbus is an open source Modbus protocol stack, but only the slave is open source, and the host source code is **charged**. At the same time, no better open source Modbus host protocol stack was found on the Internet, so this FreeModbus protocol stack supporting host mode was developed. This version of FreeModbus has been changed to V1.6 and features are as follows:
 
--The newly added host source code is consistent with the style and interface of the original slave;
--Support the host and slave to run in the same protocol stack;
--Support real-time operating system and bare metal transplantation;
--Provide a variety of request modes for applications, users can choose blocking or non-blocking mode, custom timeout time, etc., to facilitate flexible calls at the application layer;
--Support all common Modbus methods.
+- The newly added host source code is consistent with the style and interface of the original slave;
+- Support the host and slave to run in the same protocol stack;
+- Support real-time operating system and bare metal transplantation;
+- Provide a variety of request modes for applications, users can choose blocking or non-blocking mode, custom timeout time, etc., to facilitate flexible calls at the application layer;
+- Support all common Modbus methods.
 
 ### File structure
 

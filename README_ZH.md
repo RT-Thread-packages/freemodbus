@@ -1,6 +1,6 @@
 # Freemodbus
 
-中文页 | [英文页](README.md)
+中文页 | [English](README.md)
 
 ## 简介
 
