@@ -55,7 +55,7 @@ BOOL xMBMasterPortTimersInit(USHORT usTimeOut50us)
 void vMBMasterPortTimersT35Enable()
 {
     rt_tick_t timer_tick = (50 * usT35TimeOut50us)
-            / (1000 * 1000 / RT_TICK_PER_SECOND);
+            / (1000 * 1000 / RT_TICK_PER_SECOND) + 1;
 
     /* Set current timer mode, don't change it.*/
     vMBMasterSetCurTimerMode(MB_TMODE_T35);
