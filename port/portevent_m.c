@@ -213,13 +213,18 @@ void vMBMasterCBRequestScuuess( void ) {
 eMBMasterReqErrCode eMBMasterWaitRequestFinish( void ) {
     eMBMasterReqErrCode    eErrStatus = MB_MRE_NO_ERR;
     rt_uint32_t recvedEvent;
+    rt_uint32_t result;
     /* waiting for OS event */
-    rt_event_recv(&xMasterOsEvent,
-            EV_MASTER_PROCESS_SUCESS | EV_MASTER_ERROR_RESPOND_TIMEOUT
-                    | EV_MASTER_ERROR_RECEIVE_DATA
-                    | EV_MASTER_ERROR_EXECUTE_FUNCTION,
-            RT_EVENT_FLAG_OR | RT_EVENT_FLAG_CLEAR, RT_WAITING_FOREVER,
-            &recvedEvent);
+    result = rt_event_recv(&xMasterOsEvent,
+                    EV_MASTER_PROCESS_SUCESS | EV_MASTER_ERROR_RESPOND_TIMEOUT
+                            | EV_MASTER_ERROR_RECEIVE_DATA
+                            | EV_MASTER_ERROR_EXECUTE_FUNCTION,
+                    RT_EVENT_FLAG_OR | RT_EVENT_FLAG_CLEAR, MB_MASTER_DELAY_MS_CONVERT,
+                    &recvedEvent);
+    if (result != RT_EOK) {
+        eErrStatus = MB_MRE_TIMEDOUT;
+    }
+
     switch (recvedEvent)
     {
     case EV_MASTER_PROCESS_SUCESS:
@@ -239,6 +244,9 @@ eMBMasterReqErrCode eMBMasterWaitRequestFinish( void ) {
         eErrStatus = MB_MRE_EXE_FUN;
         break;
     }
+    default:
+        eErrStatus = MB_MRE_TIMEDOUT;
+        break;
     }
     return eErrStatus;
 }
