@@ -21,6 +21,7 @@
 
 #include "port.h"
 
+#ifdef PKG_MODBUS_SLAVE_TCP
 /* ----------------------- Modbus includes ----------------------------------*/
 #include "mb.h"
 #include "mbport.h"
@@ -110,3 +111,4 @@ xMBTCPPortSendResponse(const UCHAR *pucMBTCPFrame, USHORT usTCPLength)
     }
     return bFrameSent;
 }
+#endif
