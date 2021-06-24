@@ -220,6 +220,7 @@ static void serial_soft_trans_irq(void* parameter) {
  * @return return RT_EOK
  */
 static rt_err_t serial_rx_ind(rt_device_t dev, rt_size_t size) {
-    prvvUARTRxISR();
+    while(size--)
+        prvvUARTRxISR();
     return RT_EOK;
 }
