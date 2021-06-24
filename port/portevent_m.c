@@ -51,14 +51,12 @@ xMBMasterPortEventGet( eMBMasterEventType * eEvent )
     rt_uint32_t recvedEvent;
     BOOL result;
     /* waiting forever OS event */
-    result = rt_event_recv(&xMasterOsEvent,
+    rt_event_recv(&xMasterOsEvent,
             EV_MASTER_READY | EV_MASTER_FRAME_RECEIVED | EV_MASTER_EXECUTE |
             EV_MASTER_FRAME_SENT | EV_MASTER_ERROR_PROCESS,
-            RT_EVENT_FLAG_OR | RT_EVENT_FLAG_CLEAR, MB_MASTER_DELAY_MS_CONVERT,
+            RT_EVENT_FLAG_OR | RT_EVENT_FLAG_CLEAR, RT_WAITING_FOREVER,
             &recvedEvent);
 
-    if(result != RT_EOK) 
-        return FALSE;
     /* the enum type couldn't convert to int type */
     switch (recvedEvent)
     {
