@@ -26,7 +26,7 @@ RT-Thread online packages
                  (115200) uart baudrate used by slave sample
 ```
 
-添加示例代码到工程中，并编译下载之后，可以在控制台中看到这两个命令，分别时 Modbus 主机和从机的示例代码。要看代码运行的效果还需要 PC 端 Modbus Poll 和 Modbus slave 这两个软件的配合。
+添加示例代码到工程中，并编译下载之后，可以在控制台中看到这两个命令，分别是 Modbus 主机和从机的示例代码。要看代码运行的效果还需要 PC 端 Modbus Poll 和 Modbus slave 这两个软件的配合。
 
 ![1561348568591](figures/run.png)
 
