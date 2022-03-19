@@ -36,7 +36,7 @@ static void send_thread_entry(void *parameter)
 {
     eMBMasterReqErrCode error_code = MB_MRE_NO_ERR;
     rt_uint16_t error_count = 0;
-    USHORT data[2] = {0};
+    USHORT data[MB_SEND_REG_NUM] = {0};
 
     while (1)
     {
