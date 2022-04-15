@@ -24,15 +24,26 @@
 /* ----------------------- Modbus includes ----------------------------------*/
 #include "port.h"
 /* ----------------------- Variables ----------------------------------------*/
-
+static struct rt_semaphore lock;
+static int is_inited = 0;
 /* ----------------------- Start implementation -----------------------------*/
 void EnterCriticalSection(void)
 {
-    rt_enter_critical();
+    rt_err_t err;
+    if(!is_inited)
+    {
+        err = rt_sem_init(&lock, "fmb_lock", 1, RT_IPC_FLAG_PRIO);
+        if(err != RT_EOK)
+        {
+            rt_kprintf("Freemodbus Critical init failed!\n");
+        }
+        is_inited = 1;
+    }
+    rt_sem_take(&lock, RT_WAITING_FOREVER);
 }
 
 void ExitCriticalSection(void)
 {
-    rt_exit_critical();
+    rt_sem_release(&lock);
 }
 
