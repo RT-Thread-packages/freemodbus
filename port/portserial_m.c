@@ -37,7 +37,7 @@ static struct rt_thread thread_serial_soft_trans_irq;
 /* serial event */
 static struct rt_event event_serial;
 /* modbus master serial device */
-static rt_serial_t *serial;
+static struct rt_serial_device *serial;
 
 /* ----------------------- Defines ------------------------------------------*/
 /* serial transmit event */
