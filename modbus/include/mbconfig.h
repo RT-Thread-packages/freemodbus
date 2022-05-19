@@ -1,4 +1,4 @@
-/* 
+/*
  * FreeModbus Libary: A portable Modbus implementation for Modbus ASCII/RTU.
  * Copyright (c) 2006-2018 Christian Walter <cwalter@embedded-solutions.at>
  * All rights reserved.
@@ -44,7 +44,7 @@ PR_BEGIN_EXTERN_C
  *
  * All of these settings are available in the file <code>mbconfig.h</code>
  */
- 
+
 #include <rtconfig.h>
 
 /*! \addtogroup modbus_cfg
