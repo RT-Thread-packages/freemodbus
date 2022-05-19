@@ -52,7 +52,8 @@ static void tcpserver_event_notify(tcpclient_t client, rt_uint8_t event)
         }
         break;
     case TCPSERVER_EVENT_RECV:
-        if(mb_client==client){
+        if( mb_client == client)
+        {
             prvvTCPLength = tcpserver_recv(mb_client, &prvvTCPBuf, MB_TCP_BUF_SIZE, 100);
             if (prvvTCPLength)
             {
@@ -61,7 +62,7 @@ static void tcpserver_event_notify(tcpclient_t client, rt_uint8_t event)
         }
         break;
     case TCPSERVER_EVENT_DISCONNECT:
-        if(mb_client==client)
+        if (mb_client == client)
             mb_client = RT_NULL;
         break;
     default:
