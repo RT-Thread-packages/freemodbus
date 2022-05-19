@@ -42,27 +42,27 @@ static void tcpserver_event_notify(tcpclient_t client, rt_uint8_t event)
     {
     case TCPSERVER_EVENT_CONNECT:
         if (mb_client == RT_NULL)
-		{
+        {
             mb_client = client;
         }
-		else
-		{
-			tcpserver_close(client);
-			rt_kprintf("Multi-host is not supported, please disconnect the current host first!");
-		}
+        else
+        {
+            tcpserver_close(client);
+            rt_kprintf("Multi-host is not supported, please disconnect the current host first!");
+        }
         break;
     case TCPSERVER_EVENT_RECV:
-		if(mb_client==client){    
-			prvvTCPLength = tcpserver_recv(mb_client, &prvvTCPBuf, MB_TCP_BUF_SIZE, 100);
-			if (prvvTCPLength)
-			{
-				xMBPortEventPost(EV_FRAME_RECEIVED);
-			}
-		}
+        if(mb_client==client){    
+            prvvTCPLength = tcpserver_recv(mb_client, &prvvTCPBuf, MB_TCP_BUF_SIZE, 100);
+            if (prvvTCPLength)
+            {
+                xMBPortEventPost(EV_FRAME_RECEIVED);
+            }
+        }
         break;
     case TCPSERVER_EVENT_DISCONNECT:
         if(mb_client==client)
-			mb_client = RT_NULL;
+            mb_client = RT_NULL;
         break;
     default:
         break;
