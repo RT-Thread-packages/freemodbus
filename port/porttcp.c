@@ -38,6 +38,7 @@ static USHORT   prvvTCPLength;
 
 static void tcpserver_event_notify(tcpclient_t client, rt_uint8_t event)
 {
+    static rt_tick_t recv_tick = 0;
     switch (event)
     {
     case TCPSERVER_EVENT_CONNECT:
@@ -47,13 +48,23 @@ static void tcpserver_event_notify(tcpclient_t client, rt_uint8_t event)
         }
         else
         {
-            tcpserver_close(client);
-            rt_kprintf("Multi-host is not supported, please disconnect the current host first!");
+            if(rt_tick_get() - recv_tick > 30 * RT_TICK_PER_SECOND) /* set timeout as 30s */
+            {
+                tcpserver_close(mb_client);
+                mb_client = client;
+                recv_tick = rt_tick_get();
+            }
+            else
+            {
+                tcpserver_close(client);
+                rt_kprintf("Multi-host is not supported, please disconnect the current host first!\n");
+            }
         }
         break;
     case TCPSERVER_EVENT_RECV:
         if( mb_client == client)
         {
+            recv_tick = rt_tick_get();
             prvvTCPLength = tcpserver_recv(mb_client, &prvvTCPBuf, MB_TCP_BUF_SIZE, 100);
             if (prvvTCPLength)
             {
