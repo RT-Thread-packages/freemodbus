@@ -48,7 +48,7 @@ static void tcpserver_event_notify(tcpclient_t client, rt_uint8_t event)
         }
         else
         {
-            if(rt_tick_get() - recv_tick > 30 * RT_TICK_PER_SECOND)
+            if(rt_tick_get() - recv_tick > 30 * RT_TICK_PER_SECOND) /* set timeout as 30s */
             {
                 tcpserver_close(mb_client);
                 mb_client = client;
