@@ -49,7 +49,7 @@ BOOL
 xMBMasterPortEventGet( eMBMasterEventType * eEvent )
 {
     rt_uint32_t recvedEvent;
-    BOOL result;
+	
     /* waiting forever OS event */
     rt_event_recv(&xMasterOsEvent,
             EV_MASTER_READY | EV_MASTER_FRAME_RECEIVED | EV_MASTER_EXECUTE |
