@@ -89,7 +89,7 @@ static void mb_slave_poll(void *parameter)
     }
 }
 
-static int mb_slave_samlpe(int argc, char **argv)
+static int mb_slave_sample(int argc, char **argv)
 {
     static rt_uint8_t is_init = 0;
     rt_thread_t tid1 = RT_NULL, tid2 = RT_NULL;
@@ -101,7 +101,7 @@ static int mb_slave_samlpe(int argc, char **argv)
     }
     if (argc < 2)
     {
-        rt_kprintf("Usage: mb_slave_samlpe RTU/ASCII/TCP\n");
+        rt_kprintf("Usage: mb_slave_sample RTU/ASCII/TCP\n");
         return -1;
     }
 
@@ -136,4 +136,4 @@ __exit:
 
     return -RT_ERROR;
 }
-MSH_CMD_EXPORT(mb_slave_samlpe, run a modbus slave sample);
+MSH_CMD_EXPORT(mb_slave_sample, run a modbus slave sample);

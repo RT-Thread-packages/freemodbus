@@ -70,7 +70,7 @@ static void mb_master_poll(void *parameter)
     }
 }
 
-static int mb_master_samlpe(int argc, char **argv)
+static int mb_master_sample(int argc, char **argv)
 {
     static rt_uint8_t is_init = 0;
     rt_thread_t tid1 = RT_NULL, tid2 = RT_NULL;
@@ -111,4 +111,4 @@ __exit:
 
     return -RT_ERROR;
 }
-MSH_CMD_EXPORT(mb_master_samlpe, run a modbus master sample);
+MSH_CMD_EXPORT(mb_master_sample, run a modbus master sample);

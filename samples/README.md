@@ -34,7 +34,7 @@ RT-Thread online packages
 
 首先下载安装和主机示例代码配合的 Modbus slave 软件。
 
-然后，在命令行输入 `mb_master_samlpe` 命令就可以运行主机的示例代码。
+然后，在命令行输入 `mb_master_sample` 命令就可以运行主机的示例代码。
 
 运行之后，打开 Modbus slave 软件，点击菜单“Setup”中“Slave Definition.. F2”进行参数设置。
 
