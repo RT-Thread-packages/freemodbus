@@ -28,8 +28,12 @@
 #include "board.h"
 
 /* ----------------------- Static variables ---------------------------------*/
-ALIGN(RT_ALIGN_SIZE)
 /* software simulation serial transmit IRQ handler thread stack */
+#ifdef rt_align
+rt_align(RT_ALIGN_SIZE)
+#else
+ALIGN(RT_ALIGN_SIZE)
+#endif
 static rt_uint8_t serial_soft_trans_irq_stack[512];
 /* software simulation serial transmit IRQ handler thread */
 static struct rt_thread thread_serial_soft_trans_irq;
