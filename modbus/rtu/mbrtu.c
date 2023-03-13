@@ -87,21 +87,15 @@ eMBRTUInit( UCHAR ucSlaveAddress, UCHAR ucPort, ULONG ulBaudRate, eMBParity ePar
     ENTER_CRITICAL_SECTION(  );
 
     /* Modbus RTU uses 8 Databits. */
-    if( xMBPortSerialInit( ucPort, ulBaudRate, 8, eParity ) != TRUE )
+    /* If baudrate > 19200 then we should use the fixed timer values
+     * t35 = 1750us. Otherwise t35 must be 3.5 times the character time.
+     */
+    if( ulBaudRate > 19200 )
     {
-        eStatus = MB_EPORTERR;
+            usTimerT35_50us = 35;       /* 1800us. */
     }
     else
     {
-        /* If baudrate > 19200 then we should use the fixed timer values
-         * t35 = 1750us. Otherwise t35 must be 3.5 times the character time.
-         */
-        if( ulBaudRate > 19200 )
-        {
-            usTimerT35_50us = 35;       /* 1800us. */
-        }
-        else
-        {
             /* The timer reload value for a character is given by:
              *
              * ChTimeValue = Ticks_per_1s / ( Baudrate / 11 )
@@ -111,12 +105,16 @@ eMBRTUInit( UCHAR ucSlaveAddress, UCHAR ucPort, ULONG ulBaudRate, eMBParity ePar
              * for t3.5.
              */
             usTimerT35_50us = ( 7UL * 220000UL ) / ( 2UL * ulBaudRate );
-        }
-        if( xMBPortTimersInit( ( USHORT ) usTimerT35_50us ) != TRUE )
-        {
-            eStatus = MB_EPORTERR;
-        }
     }
+
+    if( xMBPortTimersInit( ( USHORT ) usTimerT35_50us ) != TRUE )
+    {
+            eStatus = MB_EPORTERR;
+    }
+    else if( xMBPortSerialInit( ucPort, ulBaudRate, 8, eParity ) != TRUE )
+    {
+        eStatus = MB_EPORTERR;
+    }	
     EXIT_CRITICAL_SECTION(  );
 
     return eStatus;
