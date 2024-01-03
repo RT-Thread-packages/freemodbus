@@ -90,7 +90,7 @@ static int mb_master_sample(int argc, char **argv)
         goto __exit;
     }
 
-    tid2 = rt_thread_create("md_m_send", send_thread_entry, RT_NULL, 512, MB_SEND_THREAD_PRIORITY, 10);
+    tid2 = rt_thread_create("md_m_send", send_thread_entry, RT_NULL, 512, MB_SEND_THREAD_PRIORITY - 2, 10);
     if (tid2 != RT_NULL)
     {
         rt_thread_startup(tid2);

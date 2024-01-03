@@ -226,6 +226,9 @@ eMBMasterEnable( void )
     {
         eStatus = MB_EILLSTATE;
     }
+
+    xMBMasterPortEventPost( EV_MASTER_FRAME_RECEIVED );
+
     return eStatus;
 }
 
