@@ -325,8 +325,8 @@ xMBMasterRTUTransmitFSM( void )
             xFrameIsBroadcast = ( ucMasterRTUSndBuf[MB_SER_PDU_ADDR_OFF] == MB_ADDRESS_BROADCAST ) ? TRUE : FALSE;
             /* Disable transmitter. This prevents another transmit buffer
              * empty interrupt. */
-            vMBMasterPortSerialEnable( TRUE, FALSE );
             eSndState = STATE_M_TX_XFWR;
+            vMBMasterPortSerialEnable( TRUE, FALSE );
             /* If the frame is broadcast ,master will enable timer of convert delay,
              * else master will enable timer of respond timeout. */
             if ( xFrameIsBroadcast == TRUE )
